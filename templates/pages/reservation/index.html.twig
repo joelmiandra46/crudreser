@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Mes Reservations</h1>
+        <div class="container" style="width:500px">
+            <a href="{{ path('reservation_new') }}" class="btn btn-primary d-flex justify-content-center mt-4">
+                créer un nouveau
+            </a>
+    </div>
+
+
+        <div class="count mt-4 badge bg-dark">
+            Total: {{ reservations.getTotalItemCount }} salles.
+            </div>
+        <table class="table table-hover" style="margin-top: -5px">
+            <thead>
+                <tr class="table-dark">
+                <th scope="col">Numero</th>
+                <th scope="col">Client</th>
+                <th scope="col">Salle</th>
+                <th scope="col">Date de Reservation</th>
+                <th scope="col">Date Debut Occupation</th>
+                <th scope="col">Date fin Occupation</th>
+                <th scope="col">Frais</th>
+                <th scope="col">statut Reservation</th>
+                <th scope="col">Modifier</th>
+                <th scope="col">supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for reservation in reservations %}
+                <tr class="table-warning">
+                    <th scope="row">{{reservation.id}}</th>
+                    <td>{{reservation.client}}</td>
+                    <td>{{reservation.salle}}</td>
+                    <td>{{reservation.createdAt|date('d/m/Y')}}</td>
+                    <td>{{reservation.startDate|date('d/m/Y')}}</td>
+                    <td>{{reservation.endDate|date('d/m/Y')}}</td>
+                    <td>{{reservation.montant}} Ar</td>
+                    <td>{{reservation.statutReservation}}</td>
+                    <td><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary">Modifier</a></td>
+                    <td><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation d-flex justify-content-center mt-4 ">
+            {{ knp_pagination_render(reservations) }}
+        </div>
+
+            
+    </div>
+{% endblock %}

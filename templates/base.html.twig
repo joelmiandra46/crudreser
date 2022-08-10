@@ -10,16 +10,61 @@
             <link rel="stylesheet" href="/css/bootstrap.css">
             <link rel="stylesheet" href="/css/_bootswatch.scss">
             <link rel="stylesheet" href="/css/_variables.css">
+            <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+            <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script src="/js/bootstrap-datepicker.js"></script>
+            <script src="/js/jquery-1.9.1.js"></script>
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script>
+                //ce script modifie les propriete du date picker en fr
+                (function($){
+                        $.fn.datepicker.dates['fr'] = {
+                        days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+                        daysShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+                        daysMin: ["dim", "lun", "ma", "me", "jeu", "ven", "sam"],
+                        months: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+                        monthsShort: ["janv.", "févr.", "mars", "avril", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+                        today: "Aujourd'hui",
+                        monthsTitle: "Mois",
+                        clear: "Effacer",
+                        weekStart: 0,
+                        format: "dd/mm/yyyy"
+                        };
+                        }(jQuery));
+                        
+                $(document).ready(function() {
+                    $('.js-datepicker').datepicker({
+                        isRTL: true,
+                        autoclose: true, 
+                        todayHighlight: true,
+                        language: 'fr',
+                        format: 'dd-mm-yyyy',
+                    });
+                });
+            </script>
+            
         {% endblock %}
     </head>
     <body>
         {% block header %}
-           {{ include('partials/_header.html.twig') }}
+            {{ include('partials/_header.html.twig') }}
         {% endblock %}
+        
+        {% for label, messages in app.flashes %}
+            <div class="container">
+                <div class="alert alert-{{ label }}">
+                    {% for message in messages %}
+                        <p>{{  message | raw }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

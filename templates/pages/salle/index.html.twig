@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SalleController!{% endblock %}
-
+{% block title %}symRes - Mes Salles{% endblock %}
+    
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container mt-4">
+        <h1>Mes salles</h1>
+        <div class="container" style="width:500px">
+            <a href="{{ path('salle_new') }}" class="btn btn-primary d-flex justify-content-center mt-4">
+                créer un nouveau
+            </a>
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/PROJET/CRUD/appreservation/src/Controller/SalleController.php'|file_link(0) }}">src/Controller/SalleController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/PROJET/CRUD/appreservation/templates/salle/index.html.twig'|file_link(0) }}">templates/salle/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <div class="count mt-4 badge bg-dark">
+            Total: {{ salles.getTotalItemCount }} salles.
+            </div>
+        <table class="table table-hover" style="margin-top: -5px">
+            <thead>
+                <tr class="table-dark">
+                <th scope="col">Numero</th>
+                <th scope="col">Designation</th>
+                <th scope="col">Capacite</th>
+                <th scope="col">Caracteristique</th>
+                <th scope="col">Remarque</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Frais</th>
+                <th scope="col">Edition</th>
+                <th scope="col">Suppression</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for salle in salles %}
+                <tr class="table-primary">
+                    <th scope="row">{{salle.numero}}</th>
+                    <td>{{salle.designation}}</td>
+                    <td>{{salle.capacite}}</td>
+                    <td>{{salle.caracteristique}}</td>
+                    <td>{{salle.rmq}}</td>
+                    <td>{{salle.etat}}</td>
+                    <td>{{salle.frais}} Ar</td>
+                    <td><a href="{{ path('salle_edit',{id: salle.id}) }}" class="btn btn-primary">Modifier</a></td>
+                    <td><a href="{{ path('salle_delete',{id: salle.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation d-flex justify-content-center mt-4 ">
+            {{ knp_pagination_render(salles) }}
+        </div>
+
+            
+    </div>
 {% endblock %}

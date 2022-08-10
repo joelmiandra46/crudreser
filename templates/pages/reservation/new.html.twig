@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form _self %}
+
+{% block body %}
+    <div class="container" style="width:500px;">
+                
+        <a href="{{ path('reservation_index') }}" class="btn btn-primary d-flex justify-content-center mt-4">
+            revenir aux listes
+        </a>
+        <h1 class="mt-4">Creation d'une salle</h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-dark mt-3">Créer une réservation</button>
+        {{ form_end(form) }}
+        
+    </div>
+{% endblock %}
+
+

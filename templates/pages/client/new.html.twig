@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form _self %}
+
+{% block body %}
+    <div class="container" style="width:500px;">
+                
+        <a href="{{ path('client_index') }}" class="btn btn-primary d-flex justify-content-center mt-4">
+            revenir aux listes
+        </a>
+        <h1 class="mt-4">Ajout d'un client </h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+        <button type="submit" class="btn btn-dark mt-3">Ajouter le nouveau client</button>
+        {{ form_end(form) }}
+        
+    </div>
+{% endblock %}
+
+

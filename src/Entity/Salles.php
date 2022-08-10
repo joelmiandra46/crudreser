@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\SallesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SallesRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: SallesRepository::class)]
+#[UniqueEntity('designation')]
 class Salles
 {
     #[ORM\Id]
@@ -40,8 +44,19 @@ class Salles
     #[ORM\Column]
     #[Assert\NotNull()]
     #[Assert\Positive()]
-    #[Assert\LessThan(999999)]
     private ?float $frais = null;
+
+    #[ORM\OneToMany(mappedBy: 'idsalle', targetEntity: Reservation::class)]
+    private Collection $reservations;
+
+    #[ORM\OneToMany(mappedBy: 'salle', targetEntity: Reservation::class)]
+    private Collection $clt;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+        $this->clt = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -130,5 +145,68 @@ class Salles
         $this->frais = $frais;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setIdsalle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getIdsalle() === $this) {
+                $reservation->setIdsalle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getClt(): Collection
+    {
+        return $this->clt;
+    }
+
+    public function addClt(Reservation $clt): self
+    {
+        if (!$this->clt->contains($clt)) {
+            $this->clt->add($clt);
+            $clt->setSalle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClt(Reservation $clt): self
+    {
+        if ($this->clt->removeElement($clt)) {
+            // set the owning side to null (unless already changed)
+            if ($clt->getSalle() === $this) {
+                $clt->setSalle(null);
+            }
+        }
+
+        return $this;
+    }
+    public function  __toString(){
+        return $this->designation;
     }
 }

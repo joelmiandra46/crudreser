@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}symRes - Mes Clients{% endblock %}
+    
+{% block body %}
+    <div class="container mt-4">
+        <h1>Mes clients</h1>
+        <div class="container" style="width:500px">
+            <a href="{{ path('client_new') }}" class="btn btn-primary d-flex justify-content-center mt-4">
+                créer un nouveau
+            </a>
+        </div>
+
+
+        <div class="count mt-4 badge bg-dark">
+               Total: {{ clients.getTotalItemCount }} clients.
+            </div>
+        <table class="table table-hover" style="margin-top: -5px">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Numero</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Tel</th>
+                    <th scope="col">Edition</th>
+                    <th scope="col">Suppression</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr class="table-info">
+                    <th scope="row">{{client.id}}</th>
+                    <td>{{client.nom}}</td>
+                    <td>{{client.prenom}}</td>
+                    <td>{{client.tel}}</td>
+                    <td><a href="{{ path('client_edit',{id: client.id}) }}" class="btn btn-primary">Modifier</a></td>
+                    <td><a href="{{ path('client_delete',{id: client.id}) }}" class="btn btn-warning">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation d-flex justify-content-center mt-4 ">
+            {{ knp_pagination_render(clients) }}
+        </div>
+
+            
+    </div>
+{% endblock %}
