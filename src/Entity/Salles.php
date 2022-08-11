@@ -159,7 +159,7 @@ class Salles
     {
         if (!$this->reservations->contains($reservation)) {
             $this->reservations->add($reservation);
-            $reservation->setIdsalle($this);
+            $reservation->setIdSalle($this);
         }
 
         return $this;

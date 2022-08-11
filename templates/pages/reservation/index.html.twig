@@ -3,17 +3,17 @@
 {% block title %}Reservation{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1>Mes Reservations</h1>
+    <div class="container mt-4 ">
+        <h1 >Mes Reservations</h1>
         <div class="container" style="width:500px">
-            <a href="{{ path('reservation_new') }}" class="btn btn-primary d-flex justify-content-center mt-4">
+            <a href="{{ path('reservation_new') }}" class="btn btn-primary d-flex justify-content-center mt-4 ">
                 créer un nouveau
             </a>
     </div>
 
 
         <div class="count mt-4 badge bg-dark">
-            Total: {{ reservations.getTotalItemCount }} salles.
+            Total: {{ reservations.getTotalItemCount }} réservations.
             </div>
         <table class="table table-hover" style="margin-top: -5px">
             <thead>

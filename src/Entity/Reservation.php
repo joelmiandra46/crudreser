@@ -2,10 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservationRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+
+/**
+* @ORM\Entity
+* @UniqueEntity( fields={"client", "salle"},
+ *     errorPath="salle",
+ *     message="Cette salle est déjà utilisé sur cet client."),
+ * @UniqueEntity( fields={"salle"},
+ *     errorPath="salle",
+ *     message="Cette salle a deja été réserver, choisissez un autre.")
+*/
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
@@ -24,6 +36,8 @@ class Reservation
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message:"entrer un montant positive")]
+    #[Assert\NotBlank()]
     private ?int $montant = null;
 
     #[ORM\Column(length: 255)]

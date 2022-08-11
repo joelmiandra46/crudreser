@@ -1,0 +1,6 @@
+#newres ,#newclient,#editclient, #editres,#newsalle, #editsalle{
+    background-color: rgba(230, 230, 244, 0.439);
+    border-radius: 40px;
+    margin: auto;
+    position: relative;
+}

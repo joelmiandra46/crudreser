@@ -47,7 +47,7 @@ class ReservationType extends AbstractType
             'html5' => false,
             // adds a class that can be selected in JavaScript
             'attr' => [
-                'class' =>'js-datepicker form-control',
+                'class' =>'js-datepicker form-control ',
                 'placeholder'=> $placeholder,
             ],
             ], $options);
@@ -78,15 +78,15 @@ class ReservationType extends AbstractType
                 'choice_label' => 'designation',
             ])
             ->add('createdAt', DateType::class,$this-> getConfigurationDate("Date de reservation","Selectionnez la date d'aujourd'hui"))
-            ->add('startDate', DateType::class,$this-> getConfigurationDate("Debut date a reserver","Selectionnez la date d'occupation"))
-            ->add('endDate', DateType::class,$this-> getConfigurationDate("Fin date a reserver","Selectionnez la date de fin d'occupation"))
+            ->add('startDate', DateType::class,$this-> getConfigurationDate("Debut date d'occupation","Selectionnez la date d'occupation"))
+            ->add('endDate', DateType::class,$this-> getConfigurationDate("Fin date d'occupation","Selectionnez la date de fin d'occupation"))
             ->add('montant', NumberType::class,$this-> getConfiguration("Frais :","Le prix de reservation du salle en Ar"))
             ->add('statutReservation', ChoiceType::class, [
                 'attr'=>[
                     'class'=>'form-select'
                 ],
                 'choices'  => [
-                    'Resérvé' => 'Resérvé',//nul
+                    'Réservé' => 'Réservé',//nul
                     'libre' => 'libre',
                 ],
             ])
