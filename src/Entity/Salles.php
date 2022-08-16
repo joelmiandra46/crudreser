@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: SallesRepository::class)]
+#[ORM\HasLifecycleCallbacks()]
 #[UniqueEntity('designation')]
 class Salles
 {
@@ -56,6 +57,28 @@ class Salles
     {
         $this->reservations = new ArrayCollection();
         $this->clt = new ArrayCollection();
+    }
+    /**
+     * Permet d'obtenir un tableau des jours qui ne sont pas disponibles
+     *
+     * @return array Un tableau d'objets datetime representant les dates d'occupation
+     */
+    public function getNotAvailableDays(){
+        $notAvailableDays = [];
+        foreach($this->clt as $reservation){
+            //calculer les jours qui se trouve entre startdate et enddate
+            $resultat = range(
+                $reservation->getStartDate()->getTimestamp(),
+                $reservation->getEndDate()->getTimestamp(),
+                24 * 60 * 60
+            );
+            $days = array_map(function($dayTimestamp){
+                return new \DateTime(date('Y-m-d',$dayTimestamp));
+            }, $resultat);
+
+            $notAvailableDays = array_merge($notAvailableDays, $days);
+        }
+        return $notAvailableDays;
     }
 
     public function getId(): ?int
@@ -147,36 +170,7 @@ class Salles
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    public function addReservation(Reservation $reservation): self
-    {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setIdSalle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservation(Reservation $reservation): self
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getIdsalle() === $this) {
-                $reservation->setIdsalle(null);
-            }
-        }
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection<int, Reservation>
      */

@@ -4,3 +4,10 @@
     margin: auto;
     position: relative;
 }
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
+}
+
+td{
+    font-size: x-small;
+}

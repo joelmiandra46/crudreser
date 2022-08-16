@@ -4,7 +4,7 @@
     
 {% block body %}
     <div class="container mt-4">
-        <h1>Mes salles</h1>
+        <h1>Listes des salles</h1>
         <div class="container" style="width:500px">
             <a href="{{ path('salle_new') }}" class="btn btn-primary d-flex justify-content-center mt-4">
                 créer un nouveau
@@ -38,7 +38,7 @@
                     <td>{{salle.caracteristique}}</td>
                     <td>{{salle.rmq}}</td>
                     <td>{{salle.etat}}</td>
-                    <td>{{salle.frais}} Ar</td>
+                    <td width="100px">{{salle.frais}} Ar</td>
                     <td><a href="{{ path('salle_edit',{id: salle.id}) }}" class="btn btn-primary">Modifier</a></td>
                     <td><a href="{{ path('salle_delete',{id: salle.id}) }}" class="btn btn-danger">Supprimer</a></td>
                 </tr>

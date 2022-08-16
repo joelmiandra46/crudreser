@@ -3,23 +3,27 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             <link rel="stylesheet" href="/css/bootstrap.min.css">
             <link rel="stylesheet" href="/css/bootstrap.css">
-            <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+            <link rel="stylesheet" href="/datepicker/bootstrap-datepicker.min.css">
             <link rel="stylesheet" href="/css/_bootswatch.scss">
-            <link rel="stylesheet" href="/css/_variables.css">
+            <link rel="stylesheet" href="/css/_variables.scss">
+            <link rel="stylesheet" href="/css/bootstrap-icons.css">
+            <link rel="stylesheet" href="/css/font-awesome.min.css">
             <link rel="stylesheet" href="/css/style.css">
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             <script src="/js/jquery.min.js"></script>
-            <script src="/js/jquery-1.9.1.js"></script>
-            <script src="/js/bootstrap-datepicker.js"></script>
-            <script src="/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="/js/bootstrap.min.js"></script>
+            <script src="/js/popper.min.js"></script>
+            <script src="/datepicker/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script>
                 //ce script modifie les propriete du date picker en fr
                 (function($){
@@ -30,7 +34,6 @@
                         months: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
                         monthsShort: ["janv.", "févr.", "mars", "avril", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
                         today: "Aujourd'hui",
-                        monthsTitle: "Mois",
                         clear: "Effacer",
                         weekStart: 0,
                         format: "dd/mm/yyyy"
@@ -38,18 +41,19 @@
                         }(jQuery));
                         
                 $(document).ready(function() {
-                    $('.js-datepicker').datepicker({
+                    $('#reservation_startDate, #reservation_endDate').datepicker({
                         isRTL: true,
                         autoclose: true, 
                         todayHighlight: true,
                         language: 'fr',
-                        format: 'dd-mm-yyyy',
+                        format: 'dd/mm/yyyy',
+                        startDate: new Date()
                     });
                 });
             </script>
-            
         {% endblock %}
     </head>
+
     <body>
         {% block header %}
             {{ include('partials/_header.html.twig') }}
@@ -66,5 +70,7 @@
         {% endfor %}
 
         {% block body %}{% endblock %}
+        {% block footer %}
+        {% endblock %}
     </body>
 </html>

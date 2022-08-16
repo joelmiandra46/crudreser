@@ -44,7 +44,7 @@ class SalleController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-      #[Route('/salle/nouveau', name:"salle_new", methods:['GET','POST'])]
+    #[Route('/salle/nouveau', name:"salle_new", methods:['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $salle = new Salles();
@@ -63,7 +63,7 @@ class SalleController extends AbstractController
                 'Votre salle a été créé avec succès'
             );
 
-           return $this->redirectToRoute('salle_index');
+        return $this->redirectToRoute('salle_index');
         }
         return $this->render('pages/salle/new.html.twig', [
             'form'=> $form->createView()

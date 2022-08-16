@@ -48,7 +48,7 @@ class AppFixtures extends Fixture
                         $reservation = new Reservation();
     
                         $createdAt = $faker->dateTimeBetween('- 6 months');
-                        $startDate = $faker->dateTimeBetween('- 6 months');
+                        $startDate = $faker->dateTimeBetween('- 3 months');
     
                         $duration = mt_rand(3, 10);
                         $endDate = (clone $startDate)->modify("+$duration days");

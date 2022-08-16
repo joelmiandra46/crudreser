@@ -29,8 +29,9 @@ class ReservationController extends AbstractController
         ]);
     }
 
-        /**
-     * Ce controlleur permet de creer un nouveau salle
+
+    /**
+     * controlleur pour cree un nouveau reservatio
      *
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -44,19 +45,29 @@ class ReservationController extends AbstractController
         $form = $this->createForm(ReservationType::class, $reservation);
 
         $form->handleRequest($request);   //gerer requette
+
         if ($form->isSubmitted() && $form->isValid()) { 
             $reservation = $form->getData();
+            //si lesdates ne sont pas disponibles, message d'erreur
+            if(!$reservation->isBookableDates()){
+                $this->addFlash(
+                    'warning',
+                    "Les dates que vous avez choisi ne peuvent etre réservées: elle sont déja prises "
+                );
+            } else {
+                //sinon enregistrement et redirection
+                $manager->persist($reservation);//commit vers repository
+                $manager->flush();//push
 
-            $manager->persist($reservation);//commit vers repository
-            $manager->flush();//push
+                $this->addFlash(
+                    'success',
+                    'Votre reservation a été créé avec succès'
+                );
 
-            $this->addFlash(
-                'success',
-                'Votre reservation a été créé avec succès'
-            );
-
-            return $this->redirectToRoute('reservation_index');
+                return $this->redirectToRoute('reservation_index');
+            }
         }
+
         return $this->render('pages/reservation/new.html.twig', [
             'form'=> $form->createView()
         ]);
@@ -74,10 +85,11 @@ class ReservationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) { 
             $reservation = $form->getData();
-
+            
             $manager->persist($reservation);//commit vers repository
             $manager->flush();//push
-
+            
+            dump($reservation );
             $this->addFlash(
                 "success",
                 "Les modifications de la réservation numero <strong>{$reservation->getId()}</strong> ont été bien enregistrées"
