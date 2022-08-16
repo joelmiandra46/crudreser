@@ -52,7 +52,7 @@ class ClientController extends AbstractController
 
         $form->handleRequest($request);   //gerer requette
         if ($form->isSubmitted() && $form->isValid()) { 
-            $salle = $form->getData();
+            $client = $form->getData();
 
             $manager->persist($client);//commit 
             $manager->flush();//push
@@ -101,7 +101,7 @@ class ClientController extends AbstractController
     {
         if(!$client){
             $this->addFlash(
-                "success",
+                "danger",
                 "Le client numero <strong>{$client->getId()}</strong> n'existe pas"
             );
             return $this->redirectToRoute('salle_index');
@@ -111,7 +111,7 @@ class ClientController extends AbstractController
 
 
         $this->addFlash(
-            "warning",
+            "success",
             "Le client  <strong>{$client->getNom()}</strong> a été bien supprimé"
         );
         return $this->redirectToRoute('client_index');

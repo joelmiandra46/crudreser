@@ -104,7 +104,7 @@ class SalleController extends AbstractController
     {
         if(!$salle){
             $this->addFlash(
-                "success",
+                "danger",
                 "La salle  numero <strong>{$salle->getNumero()}</strong> n'existe pas"
             );
             return $this->redirectToRoute('salle_index');
@@ -114,7 +114,7 @@ class SalleController extends AbstractController
 
 
         $this->addFlash(
-            "danger",
+            "success",
             "La salle  numero <strong>{$salle->getNumero()}</strong> a été bien supprimé"
         );
         return $this->redirectToRoute('salle_index');

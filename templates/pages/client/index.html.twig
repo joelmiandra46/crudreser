@@ -34,15 +34,14 @@
                     <td>{{client.prenom}}</td>
                     <td>{{client.tel}}</td>
                     <td><a href="{{ path('client_edit',{id: client.id}) }}" class="btn btn-primary">Modifier</a></td>
-                    <td><a href="{{ path('client_delete',{id: client.id}) }}" class="btn btn-warning">Supprimer</a></td>
+                    <td><a href="{{ path('client_delete',{id: client.id}) }}" class="btn btn-warning" onclick="return confirm('êtes-vous sûr de vouloir supprimer {{ client.nom }} {{ client.prenom }}?')">Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         <div class="navigation d-flex justify-content-center mt-4 ">
             {{ knp_pagination_render(clients) }}
-        </div>
-
-            
+        </div>           
     </div>
 {% endblock %}
+

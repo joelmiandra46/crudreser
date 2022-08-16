@@ -109,7 +109,7 @@ class ReservationController extends AbstractController
     {
         if(!$reservation){
             $this->addFlash(
-                "success",
+                "danger",
                 "La Reservation  numero <strong>{$reservation->getId()}</strong> n'existe pas"
             );
             return $this->redirectToRoute('salle_index');
@@ -119,7 +119,7 @@ class ReservationController extends AbstractController
 
 
         $this->addFlash(
-            "danger",
+            "success",
             "La reservation numero <strong>{$reservation->getId()}</strong> a été bien supprimé"
         );
         return $this->redirectToRoute('reservation_index');

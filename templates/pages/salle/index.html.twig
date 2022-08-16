@@ -40,7 +40,7 @@
                     <td>{{salle.etat}}</td>
                     <td width="100px">{{salle.frais}} Ar</td>
                     <td><a href="{{ path('salle_edit',{id: salle.id}) }}" class="btn btn-primary">Modifier</a></td>
-                    <td><a href="{{ path('salle_delete',{id: salle.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                    <td><a href="{{ path('salle_delete',{id: salle.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la salle {{ salle.designation }} de la liste ?')">Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>

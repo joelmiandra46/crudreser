@@ -42,7 +42,7 @@
                     <td width="110px">{{reservation.montant}} Ar</td>
                     <td>{{reservation.statutReservation}}</td>
                     <td><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary">Modifier</a></td>
-                    <td><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                    <td><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la reservation {{ reservation.id }}?')">Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>
