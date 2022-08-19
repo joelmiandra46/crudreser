@@ -7,6 +7,7 @@
         <h1>Listes des salles</h1>
         <div class="container" style="width:500px">
             <a href="{{ path('salle_new') }}" class="btn btn-primary d-flex justify-content-center mt-4">
+                <i class="fas fa-plus mt-1 m-2 "> </i> 
                 créer un nouveau
             </a>
         </div>
@@ -39,8 +40,8 @@
                     <td>{{salle.rmq}}</td>
                     <td>{{salle.etat}}</td>
                     <td width="100px">{{salle.frais}} Ar</td>
-                    <td><a href="{{ path('salle_edit',{id: salle.id}) }}" class="btn btn-primary">Modifier</a></td>
-                    <td><a href="{{ path('salle_delete',{id: salle.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la salle {{ salle.designation }} de la liste ?')">Supprimer</a></td>
+                    <td><a href="{{ path('salle_edit',{id: salle.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a></td>
+                    <td><a href="{{ path('salle_delete',{id: salle.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la salle {{ salle.designation }} de la liste ?')"><i class="fa fa-trash"></i> Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>

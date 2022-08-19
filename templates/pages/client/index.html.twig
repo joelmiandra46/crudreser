@@ -7,14 +7,14 @@
         <h1>Listes des clients</h1>
         <div class="container" style="width:500px">
             <a href="{{ path('client_new') }}" class="btn btn-primary d-flex justify-content-center mt-4">
-                créer un nouveau
+                <i class="fas fa-user-plus mt-1 m-2"> </i>   créer un nouveau
             </a>
         </div>
 
 
         <div class="count mt-4 badge bg-dark">
-               Total: {{ clients.getTotalItemCount }} clients.
-            </div>
+            Total: {{ clients.getTotalItemCount }} clients.
+        </div>
         <table class="table table-hover" style="margin-top: -5px">
             <thead>
                 <tr class="table-dark">
@@ -33,8 +33,8 @@
                     <td>{{client.nom}}</td>
                     <td>{{client.prenom}}</td>
                     <td>{{client.tel}}</td>
-                    <td><a href="{{ path('client_edit',{id: client.id}) }}" class="btn btn-primary">Modifier</a></td>
-                    <td><a href="{{ path('client_delete',{id: client.id}) }}" class="btn btn-warning" onclick="return confirm('êtes-vous sûr de vouloir supprimer {{ client.nom }} {{ client.prenom }}?')">Supprimer</a></td>
+                    <td><a href="{{ path('client_edit',{id: client.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a></td>
+                    <td><a href="{{ path('client_delete',{id: client.id}) }}" class="btn btn-warning" onclick="return confirm('êtes-vous sûr de vouloir supprimer {{ client.nom }} {{ client.prenom }}?')"><i class="fa fa-trash"></i> Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>

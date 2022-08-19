@@ -7,7 +7,7 @@
         <h1 >Listes des Reservations</h1>
         <div class="container" style="width:500px">
             <a href="{{ path('reservation_new') }}" class="btn btn-primary d-flex justify-content-center mt-4 ">
-                créer un nouveau
+                <i class="fas fa-plus mt-1 m-2"></i> créer un nouveau
             </a>
     </div>
 
@@ -33,16 +33,16 @@
             <tbody>
             {% for reservation in reservations %}
                 <tr class="table-warning">
-                    <th scope="row">{{reservation.id}}</th>
+                    <th scope="row" width="50px">{{reservation.id}}</th>
                     <td width="100px">{{reservation.client}}</td>
-                    <td width="115px">{{reservation.salle}}</td>
+                    <td width="100px">{{reservation.salle}}</td>
                     <td>{{reservation.createdAt|date('d/m/Y')}}</td>
                     <td>{{reservation.startDate|date('d/m/Y')}}</td>
                     <td>{{reservation.endDate|date('d/m/Y')}}</td>
-                    <td width="110px">{{reservation.montant}} Ar</td>
-                    <td>{{reservation.statutReservation}}</td>
-                    <td><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary">Modifier</a></td>
-                    <td><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la reservation {{ reservation.id }}?')">Supprimer</a></td>
+                    <td width="100px">{{reservation.montant}} Ar</td>
+                    <td width="50px">{{reservation.statutReservation}}</td>
+                    <td width="130px"><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a></td>
+                    <td width="130px"><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la reservation {{ reservation.id }}?')"><i class="fas fa-trash"></i> Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>
