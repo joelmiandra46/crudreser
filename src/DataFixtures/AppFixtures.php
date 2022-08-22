@@ -3,11 +3,13 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Client;
 use App\Entity\Salles;
 use App\Entity\Reservation;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
@@ -19,14 +21,14 @@ class AppFixtures extends Fixture
         for ($i=1; $i <50 ; $i++) { 
             $salle = new Salles();
 
-            $salle->setDesignation($faker->word)
-                   ->setNumero(mt_rand(1, 100))
-                   ->setCapacite(mt_rand(20 , 250))
-                   ->setCaracteristique('testcaracter')
-                   ->setRmq('   ' . join('  ', $faker->words(4)) . '   ')
-                   ->setFrais(mt_rand(20000 , 100000))
-                   ->setEtat('test etat'. $i)
-                   ;
+            $salle  ->setDesignation($faker->word)
+                    ->setNumero(mt_rand(1, 100))
+                    ->setCapacite(mt_rand(20 , 250))
+                    ->setCaracteristique('testcaracter')
+                    ->setRmq('   ' . join('  ', $faker->words(4)) . '   ')
+                    ->setFrais(mt_rand(20000 , 100000))
+                    ->setEtat('test etat'. $i)
+            ;
             $salles[] = $salle;
             $manager->persist($salle);
 
@@ -36,9 +38,9 @@ class AppFixtures extends Fixture
         for ($i=1; $i <50 ; $i++) { 
             $client = new Client();
 
-            $client->setNom($faker->firstname)
-                   ->setPrenom($faker->lastname)
-                   ->setTel($faker->phonenumber)
+            $client ->setNom($faker->firstname)
+                    ->setPrenom($faker->lastname)
+                    ->setTel($faker->phonenumber)
             ;
             $manager->persist($client);
             $clients[] = $client;
@@ -67,6 +69,19 @@ class AppFixtures extends Fixture
                                     ;
                         $manager->persist($reservation);
                     }
+            //USERS
+            for ($i=0; $i < 10 ; $i++) { 
+                $user = new User();
+                $user   ->setFullName($faker->name())
+                        ->setPseudo(mt_rand(0, 1) === 1 ? $faker->firstname() : null)
+                        ->setEmail($faker->email())
+                        ->setRoles(['ROLE_USER'])
+                        ->setPlainPassword('password')
+                ;
+
+                $manager->persist($user);
+                        
+            }
         $manager->flush();
     }
 }

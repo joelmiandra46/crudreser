@@ -62,7 +62,7 @@ class ClientController extends AbstractController
                 'un nouveau client a été ajouté avec succès'
             );
 
-           return $this->redirectToRoute('client_index');
+        return $this->redirectToRoute('client_index');
         }
         return $this->render('/pages/client/new.html.twig', [
             'form'=> $form->createView()
