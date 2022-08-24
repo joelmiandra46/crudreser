@@ -54,6 +54,10 @@ class Reservation
     #[ORM\JoinColumn(nullable: false)]
     private ?Salles $salle = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
+
 
     #[ORM\PrePersist]
     public function prePersist(){
@@ -195,6 +199,18 @@ class Reservation
     public function setSalle(?Salles $salle): self
     {
         $this->salle = $salle;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

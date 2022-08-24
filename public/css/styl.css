@@ -1,4 +1,10 @@
-#newres ,#newclient,#editclient, #editres,#newsalle, #editsalle{
+#newres ,#newclient,#editclient, #editres,#newsalle, #editsalle, #newus{
+    background-color: rgba(230, 230, 244, 0.439);
+    border-radius: 40px;
+    margin: auto;
+    position: relative;
+}
+#newus{
     background-color: rgba(230, 230, 244, 0.439);
     border-radius: 40px;
     margin: auto;

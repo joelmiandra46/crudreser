@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Inscription
+{% endblock %}
+
+{% block body %}
+    <style>
+        #newuser{
+            font-size:15px;
+            border:2px solid black;
+            border-radius: 40px;
+            margin: auto;
+            position: relative;
+        }
+    </style>
+    <div class="container mt-4" id="newuser" style="width:600px">
+        <div class="container mb-3">
+            <h1 style="text-align:center">Inscrivez vous </h1>
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.lastName)}}        
+                </div>
+                <div class="col">
+                    {{ form_row(form.firstName)}}
+                </div>
+            {{ form_row(form.email) }}
+            {{ form_row(form.password) }}
+            {{ form_row(form.passwordConfirm) }}
+            </div>
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+            <button type="submit" class="btn btn-success">Confirmez l'inscription</button>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+    
+{% endblock %}

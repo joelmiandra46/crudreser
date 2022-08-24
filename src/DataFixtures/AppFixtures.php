@@ -13,9 +13,28 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $hasher;
+    public function __construct(UserPasswordHasherInterface $hasher){
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker= Factory::create('FR-fr');
+        //Gerer les Utilisateurs
+        $users = [];
+        for ($i=1; $i<=10 ; $i++) { 
+            $user = new User();
+
+            $hash = $this->hasher->hashPassword($user, 'password');
+
+            $user->setFirstName($faker->firstname)
+                ->setLastName($faker->lastname)
+                ->setEmail($faker->email)
+                ->setPassword($hash);
+            $manager->persist($user);
+            $users[] = $user;
+        }
         //salles
         $salles=[];
         for ($i=1; $i <50 ; $i++) { 
@@ -58,6 +77,7 @@ class AppFixtures extends Fixture
                         $statutreservation = $faker->word(1);
     
                         $client = $clients[mt_rand(0, count($clients) -1)];
+                        $user = $users[mt_rand(0, count($users) - 1)];
     
                         $reservation->setClient($client)
                                     ->setSalle($salle)
@@ -66,22 +86,12 @@ class AppFixtures extends Fixture
                                     ->setCreatedAt($createdAt)
                                     ->setMontant($montant)
                                     ->setStatutReservation($statutreservation)
+                                    ->setAuthor($user)
+
                                     ;
                         $manager->persist($reservation);
                     }
-            //USERS
-            for ($i=0; $i < 10 ; $i++) { 
-                $user = new User();
-                $user   ->setFullName($faker->name())
-                        ->setPseudo(mt_rand(0, 1) === 1 ? $faker->firstname() : null)
-                        ->setEmail($faker->email())
-                        ->setRoles(['ROLE_USER'])
-                        ->setPlainPassword('password')
-                ;
-
-                $manager->persist($user);
-                        
-            }
+            
         $manager->flush();
     }
 }
