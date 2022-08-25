@@ -12,18 +12,21 @@
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('salle_index') }}">Salles
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('client_index') }}">Clients
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('reservation_index') }}">Reservations
-          </a>
-        </li>
+        <!--cette condition sert a securiser la page pour que seul l'utilisateur connecter peut modifier -->
+        {% if app.user %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('salle_index') }}">Salles
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('client_index') }}">Clients
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('reservation_index') }}">Reservations
+              </a>
+            </li>
+        {% endif %}
       </ul>
       <ul class="navbar-nav ml-auto">
         {% if app.user %}

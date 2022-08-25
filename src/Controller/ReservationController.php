@@ -11,6 +11,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ReservationController extends AbstractController
@@ -31,7 +32,9 @@ class ReservationController extends AbstractController
 
 
     /**
-     * controlleur pour cree un nouveau reservatio
+     * controlleur pour cree un nouveau reservation
+     * 
+     * @IsGranted("ROLE_USER")
      *
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -55,6 +58,7 @@ class ReservationController extends AbstractController
                     "Les dates que vous avez choisi ne peuvent etre réservées: elle sont déja prises "
                 );
             } else {
+                $reservation->setAuthor($this->getUser());
                 //sinon enregistrement et redirection
                 $manager->persist($reservation);//commit vers repository
                 $manager->flush();//push

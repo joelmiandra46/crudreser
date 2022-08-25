@@ -13,6 +13,7 @@ use function PHPUnit\Framework\returnValue;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -83,6 +84,8 @@ class AccountController extends AbstractController
     /**
      * Permet d'afficher et de traiter le formulaire de modificationde profil
      *
+     * IsGranted("ROLE_USER")
+     * 
      * @return void
      */
     #[Route('/account/profil', name: 'account_profil')]
@@ -107,6 +110,8 @@ class AccountController extends AbstractController
     }
     /**
      * Permet de modifier le mot de passe
+     * 
+     * IsGranted("ROLE_USER")
      *
      * @return Response
      */
