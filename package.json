@@ -1,5 +1,8 @@
 {
   "devDependencies": {
+    "@hotwired/stimulus": "^3.0.0",
+    "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
+    "chart.js": "^3.4.1",
     "vanillajs-datepicker": "^1.2.0"
   },
   "dependencies": {
