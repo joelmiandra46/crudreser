@@ -17,8 +17,10 @@
             <link rel="stylesheet" href="/css/_variables.scss">
             <link rel="stylesheet" href="/css/bootstrap-icons.css">
             <link rel="stylesheet" href="/css/styl.css">
-        {% endblock %}
+            <link rel="stylesheet" href="/css/alert.css">
 
+        {% endblock %}
+        {#ce block est utiliser par toutes page qui herite base.html.twig#}
         {% block javascripts %}
             <script src="/js/jquery.min.js"></script>
             <script src="/js/all.min.js"></script>
@@ -62,15 +64,36 @@
         
         {% for label, messages in app.flashes %}
             <div class="container">
-                <div class="alert alert-{{ label }}">
+                <div class="alert alert-{{ label }} show">
+                    {% if label == "success" %}
+                        <span class="fas fa-check-circle" id="check"></span>
+                    {% else %}
+                        <span class="fas fa-exclamation-circle" id="exclamation"></span>
+                    {% endif %}
                     {% for message in messages %}
-                        <p>{{  message | raw }}</p>
+                        <span class="msg" id="message">{{  message | raw }}</span>
                     {% endfor %}
+                    <span class="close-btn">
+                        <span class="fas fa-times" id="xclose"></span>
+                    </span>
                 </div>
             </div>
         {% endfor %}
 
         {% block body %}{% endblock %}
         {% block footer %}{% endblock %}
+        {#ce block sert a ajouter du script js dans les autre pages#}
+        {% block js %}{% endblock %}
+        <script>
+                    setTimeout(function(){
+                    $('.alert').addClass("hide");
+                    $('.alert').removeClass("show");
+                    },5000)//5000 === 5s auto-fermeture de l'alerte
+                $('.close-btn').click(function(){
+                    $('.alert').addClass("hide");
+                    $('.alert').removeClass("show");
+                })
+                
+        </script>
     </body>
 </html>

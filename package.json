@@ -1,11 +1,15 @@
 {
   "devDependencies": {
     "@hotwired/stimulus": "^3.0.0",
+    "@popperjs/core": "^2.11.6",
     "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
+    "bootstrap": "^5.2.0",
     "chart.js": "^3.4.1",
+    "jquery": "^3.6.1",
     "vanillajs-datepicker": "^1.2.0"
   },
   "dependencies": {
-    "bootstrap-icons": "^1.9.1"
+    "bootstrap-icons": "^1.9.1",
+    "datatables.net-dt": "^1.12.1"
   }
 }

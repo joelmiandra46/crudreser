@@ -84,11 +84,11 @@ class AccountController extends AbstractController
     /**
      * Permet d'afficher et de traiter le formulaire de modificationde profil
      *
-     * IsGranted("ROLE_USER")
      * 
      * @return void
      */
     #[Route('/account/profil', name: 'account_profil')]
+    #[IsGranted('ROLE_USER')]
     public function profil(Request $request, EntityManagerInterface $manager) {
         $user = $this->getUser();
         $form = $this->createForm(AccountType::class, $user);
@@ -111,11 +111,11 @@ class AccountController extends AbstractController
     /**
      * Permet de modifier le mot de passe
      * 
-     * IsGranted("ROLE_USER")
      *
      * @return Response
      */
     #[Route('/account/password-update', name: 'account_password')]
+    #[IsGranted('ROLE_USER')]
     public function updatePassword(Request $request,UserPasswordHasherInterface $hasher, EntityManagerInterface $manager){
         $passwordUpdate = new PasswordUpdate();
         $user = $this->getUser();
@@ -125,12 +125,12 @@ class AccountController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             //1-verifier que le old password du formulaire soit le meme que le password de l'user
-            if (!password_verify($passwordUpdate->getOldPassword(), $user->getPassword())) {
+            if (!password_verify( $passwordUpdate->getOldPassword(), $user->getPassword())) {
                 //gerer d'erreur
                 $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez tapez n'est pas votre mot de passe actuel !"));
             }else{
                 $newPassword = $passwordUpdate->getNewPassword();
-                $hash = $hasher->hashPassword($user, $newPassword);
+                $hash = $hasher->hashPassword( $user, $newPassword);
 
                 $user->setPassword($hash);
 

@@ -53,6 +53,9 @@ class Salles
     #[ORM\OneToMany(mappedBy: 'salle', targetEntity: Reservation::class)]
     private Collection $clt;
 
+    #[ORM\Column(length: 12, nullable: true)]
+    private ?string $color = null;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -202,5 +205,17 @@ class Salles
     }
     public function  __toString(){
         return $this->designation;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
     }
 }

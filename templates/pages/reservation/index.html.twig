@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-4 ">
-        <h1 >Listes des Reservations</h1>
+        <h1 style="align:center" >Listes des Reservations</h1>
         <div class="container" style="width:500px">
             <a href="{{ path('reservation_new') }}" class="btn btn-primary d-flex justify-content-center mt-4 ">
                 <i class="fas fa-plus mt-1 m-2"></i> créer un nouveau
@@ -40,7 +40,7 @@
                     <td>{{reservation.startDate|date('d/m/Y')}}</td>
                     <td>{{reservation.endDate|date('d/m/Y')}}</td>
                     <td width="100px">{{reservation.montant}} Ar</td>
-                    <td width="50px">{{reservation.statutReservation}}</td>
+                    <td width="50px" style="color= "{% if reservation.statutReservation == "Réservé" %}green{% else %}red"{% endif %}>{{reservation.statutReservation}}</td>
                     <td width="130px"><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a></td>
                     <td width="130px"><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la reservation {{ reservation.id }}?')"><i class="fas fa-trash"></i> Supprimer</a></td>
                 </tr>

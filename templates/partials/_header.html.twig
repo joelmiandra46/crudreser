@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('home_index') }}">Gestion</a>
@@ -8,23 +9,28 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="{{ path('home_index') }}">Accueil
+          <a class="nav-link" href="{{ path('home_index') }}">Accueil
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
         <!--cette condition sert a securiser la page pour que seul l'utilisateur connecter peut modifier -->
         {% if app.user %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ path('salle_index') }}">Salles
-              </a>
+              <a class="nav-link" href="{{ path('salle_index') }}">Salles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ path('client_index') }}">Clients
-              </a>
+              <a class="nav-link" href="{{ path('client_index') }}" >Clients</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ path('reservation_index') }}">Reservations
-              </a>
+              <a class="nav-link" href="{{ path('reservation_index') }}">Reservations</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="https://bootswatch.com/sandstone/#" role="button" aria-haspopup="true" aria-expanded="false">Statistiques</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ path('stats') }}">Salles</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Client</a>
+              </div>
             </li>
         {% endif %}
       </ul>
@@ -36,7 +42,7 @@
               </a>
 
               <div class="dropdown-menu dropdown-menu-right mb-5" aria-labelledby="accountDropdownLink">
-                <a href="{{ path('account_profil') }}" class="dropdown-item">Modifier mon profil</a>
+                <a href="{{ path('account_profil') }}" class="dropdown-item" >Modifier mon profil</a>
                 <a href="{{ path('account_password') }}" class="dropdown-item">Modifier mot de passe</a>
                 <div class="dropdown-divider"></div>
                 <a href="{{ path('account_logout') }}" class="dropdown-item "> <i class="fa fa-sign-out"> </i> Déconnexion</a>
@@ -54,3 +60,5 @@
     </div>
   </div>
 </nav>
+
+

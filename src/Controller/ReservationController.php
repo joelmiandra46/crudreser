@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ReservationController extends AbstractController
 {
     #[Route('/reservation', name: 'reservation_index', methods:['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(ReservationRepository $repository, PaginatorInterface $paginator,Request $request): Response
     {
         $reservations = $paginator->paginate(
@@ -55,7 +56,8 @@ class ReservationController extends AbstractController
             if(!$reservation->isBookableDates()){
                 $this->addFlash(
                     'warning',
-                    "Les dates que vous avez choisi ne peuvent etre réservées: elle sont déja prises "
+                    "Les dates que vous avez choisi <br> ne 
+                    peuvent etre réservées: <br> elle sont déja prises "
                 );
             } else {
                 $reservation->setAuthor($this->getUser());
@@ -124,7 +126,7 @@ class ReservationController extends AbstractController
 
         $this->addFlash(
             "success",
-            "La reservation numero <strong>{$reservation->getId()}</strong> a été bien supprimé"
+            "La reservation du client <strong>{$reservation->getClient()}</strong> de la salle <strong>{$reservation->getSalle()}</strong>  a été bien supprimé"
         );
         return $this->redirectToRoute('reservation_index');
     }

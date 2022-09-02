@@ -10,6 +10,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ClientController extends AbstractController
@@ -23,6 +24,7 @@ class ClientController extends AbstractController
      * @return Response
      */
     #[Route('/client', name: 'client_index', methods:['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(ClientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $clients = $paginator->paginate(

@@ -14,6 +14,7 @@ class AccountType extends AbstractType
         $builder
             ->add('lastName')
             ->add('firstName')
+            ->add('username')
             ->add('email')
         ;
     }

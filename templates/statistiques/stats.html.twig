@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques!{% endblock %}
+
+{% block css %}
+    <style>
+    #containerbox{
+        height:550px;
+    }
+        .chartBox {
+            width: 800px
+        }
+        #doughnutBox {
+            width: 230px;
+        }
+        .graphBox{
+            position: relative;
+            width: 71%;
+            padding:20px;
+            display: grid;
+            grid-template-columns: 850px ;
+            grid-gap: 30px;
+            min-height: 200px;
+            margin-left:5px;
+
+        }
+        .graphBox .box {
+            position: relative;
+            background: #fff;
+            padding: 20px;
+            width: 100%;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+            border-radius:20px;
+        }
+
+        .graphBox2{
+            position: relative;
+            width: 20%;
+            padding:20px;
+            left:858px;
+            bottom: 529px;
+            display: grid;
+            grid-template-columns: 250px ;
+            grid-gap: 30px;
+            min-height: 200px;
+            margin-left:20px;
+
+        }
+        .graphBox2 .box2 {
+            position: relative;
+            background: #fff;
+            padding: 13px;
+            width: 110%;
+            height: 100%;
+            margin-bottom:210px;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+            border-radius:20px;
+            padding-left: -2px;
+        }
+
+        @media (max-width: 991px){
+            .graphBox{
+                grid-template-columns: 450;
+                height: auto;
+
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container" id="containerbox">
+        <h1>Statistiques salle réservé</h1>
+        
+
+                <div class="graphBox">
+                    <div class="box">
+                        <div class="chartBox">
+                            <canvas id="myChart" width="400" height="110"></canvas>
+                        </div>
+                        <div class="chartBox">
+                            <canvas id="lineChart" width="400" height="110"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="graphBox2">
+                <div class="box2">
+                    <div class="chartBox" id="doughnutBox">
+                        <canvas id="doughnutChart" width="400" height="110"></canvas>
+                    </div>
+                </div>
+                </div>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    
+    <script src="/chartjs/Chart.js"></script>
+    <script src="/chartjs/Chart.esm.js"></script>
+    <script>
+        const labels = {{ salleDesignation|raw }};
+
+        const data = {
+            labels: labels,
+            datasets: [{
+            label: 'Reservation',
+            backgroundColor: {{ salleColor|raw }},
+            borderColor: {{ salleColor|raw }},
+            borderWidth: 1,
+            data: {{ salleCount|raw }},
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    yAxes: {
+                        ticks: {
+                        beginAtZero: true
+                        }
+                    }
+                }
+            }
+        };
+
+        //rendue bar
+        const myChart = new Chart(
+            document.getElementById('myChart').getContext('2d'),
+            config
+        );
+
+
+        //linechart
+        //config line
+        const config2 = {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    yAxes: {
+                        ticks: {
+                        beginAtZero: true
+                        }
+                    }
+                }
+            }
+        };
+
+        const lineChart = new Chart(
+            document.getElementById('lineChart').getContext('2d'),
+            config2
+        );
+
+        //Doughnut Chart en form e de Donnut
+        const dataDoughnut = {
+            labels: labels,
+            datasets: [{
+            label: 'Reservation',
+                backgroundColor: {{ salleColor|raw }},
+                borderColor: {{ salleColor|raw }},
+                borderWidth: 1,
+                cutout: '70%',
+                //borderRadius: 20,
+                data: {{ salleCount|raw }},
+            }]
+        };
+        const configDoughnut = {
+            type: 'doughnut',
+            data: dataDoughnut,
+            options: {
+                plugins: {
+                    legend:{
+                        position: 'left',
+                        //align: 'start'
+                        
+                    }
+                }
+            }
+        }
+        const pieChart = new Chart(
+            document.getElementById('doughnutChart').getContext('2d'),
+            configDoughnut
+        );
+</script>
+
+{% endblock %}

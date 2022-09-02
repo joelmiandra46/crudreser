@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Salles;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -45,6 +46,7 @@ class SalleType extends AbstractType
             ->add('rmq', TextType::class,$this->getConfigurationtext("Remarque", "Remarque pour votre salle","2","100"))
             ->add('etat', TextType::class,$this->getConfigurationtext("Etat", "Taper l'Etat de votre salle","4","50"))
             ->add('frais', NumberType::class, $this->getConfigurationint("Frais","Taper le frais pour la salle"))
+            ->add('color', ColorType::class)
         ;
     }
 

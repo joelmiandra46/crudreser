@@ -30,6 +30,7 @@ class AppFixtures extends Fixture
         $adminUser = new User();
         $adminUser->setFirstName('Mario')
                 ->setLastName('Miandra')
+                ->setUsername('joelmiandra')
                 ->SetEmail('mariomiandra@gmail.com')
                 ->setPassword($this->hasher->hashPassword($adminUser, 'password'))
                 ->addUserRole($adminRole);
@@ -43,6 +44,7 @@ class AppFixtures extends Fixture
 
             $user->setFirstName($faker->firstname)
                 ->setLastName($faker->lastname)
+                ->setUsername($faker->username)
                 ->setEmail($faker->email)
                 ->setPassword($hash);
             $manager->persist($user);
@@ -50,7 +52,7 @@ class AppFixtures extends Fixture
         }
         //salles
         $salles=[];
-        for ($i=1; $i <50 ; $i++) { 
+        for ($i=1; $i <30 ; $i++) { 
             $salle = new Salles();
 
             $salle  ->setDesignation($faker->word)
@@ -60,6 +62,7 @@ class AppFixtures extends Fixture
                     ->setRmq('   ' . join('  ', $faker->words(4)) . '   ')
                     ->setFrais(mt_rand(20000 , 100000))
                     ->setEtat('test etat'. $i)
+                    ->setColor($faker->HexColor)
             ;
             $salles[] = $salle;
             $manager->persist($salle);
@@ -67,7 +70,7 @@ class AppFixtures extends Fixture
         }
         //clients
         $clients = [];
-        for ($i=1; $i <50 ; $i++) { 
+        for ($i=1; $i <60 ; $i++) { 
             $client = new Client();
 
             $client ->setNom($faker->firstname)
@@ -78,7 +81,7 @@ class AppFixtures extends Fixture
             $clients[] = $client;
         }
                     //Gestion des Reservations
-                    for ($j=1; $j<=mt_rand(0, 100); $j++) { 
+                    for ($j=1; $j<=mt_rand(20, 100); $j++) { 
                         $reservation = new Reservation();
     
                         $createdAt = $faker->dateTimeBetween('- 6 months');
@@ -90,6 +93,7 @@ class AppFixtures extends Fixture
                         $statutreservation = $faker->word(1);
     
                         $client = $clients[mt_rand(0, count($clients) -1)];
+                        $salle = $salles[mt_rand(0, count($salles) -1)];
                         $user = $users[mt_rand(0, count($users) - 1)];
     
                         $reservation->setClient($client)

@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Client;
 use App\Entity\Salles;
 use App\Entity\Reservation;
-use App\Form\DataTransformer\FrenchToDateTimeTransformer;
 use App\Repository\ClientRepository;
 use App\Repository\SallesRepository;
 use Symfony\Component\Form\AbstractType;
@@ -14,6 +13,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\DataTransformer\FrenchToDateTimeTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ReservationType extends AbstractType
@@ -79,8 +80,7 @@ class ReservationType extends AbstractType
                     'Réservé' => 'Réservé',//nul
                     'libre' => 'libre',
                 ],
-            ])
-            
+            ])            
         ;
 
         $builder->get('startDate')->addModelTransformer($this->transformer);
