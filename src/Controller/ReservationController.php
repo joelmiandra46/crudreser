@@ -23,7 +23,7 @@ class ReservationController extends AbstractController
         $reservations = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*nombre de page*/
-            10
+            50
         );
 
             return $this->render('pages/reservation/index.html.twig', [
@@ -95,7 +95,6 @@ class ReservationController extends AbstractController
             $manager->persist($reservation);//commit vers repository
             $manager->flush();//push
             
-            dump($reservation );
             $this->addFlash(
                 "success",
                 "Les modifications de la réservation numero <strong>{$reservation->getId()}</strong> ont été bien enregistrées"

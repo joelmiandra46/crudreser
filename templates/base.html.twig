@@ -8,6 +8,9 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block css %}{% endblock %}
         {% block stylesheets %}
+            <link rel="stylesheet" href="/css/app.css">
+            <link rel="stylesheet" href="/DataTables/datatables.min.css">
+            <link rel="stylesheet" href="/DataTables/DataTables-1.12.1/css/dataTables.dataTables.min.csss">
             <link rel="stylesheet" href="/css/all.min.css">
             <link rel="stylesheet" href="/css/all.css">
             <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -23,6 +26,8 @@
         {#ce block est utiliser par toutes page qui herite base.html.twig#}
         {% block javascripts %}
             <script src="/js/jquery.min.js"></script>
+            <script src="/DataTables/datatables.min.js"></script>
+            <script src="/DataTables/DataTables-1.12.1/js/dataTables.dataTables.min.js"></script>
             <script src="/js/all.min.js"></script>
             <script src="/js/bootstrap.min.js"></script>
             <script src="/js/popper.min.js"></script>

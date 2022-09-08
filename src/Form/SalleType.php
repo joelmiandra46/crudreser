@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SalleType extends AbstractType
 {
-    private function getConfigurationtext($label, $placeholder,$minlength, $maxlength, $options = []){
+    private function getConfigurationText($label, $placeholder,$minlength, $maxlength, $options = []){
         return array_merge([
             'label' => $label,
             'attr' => [
@@ -26,7 +26,7 @@ class SalleType extends AbstractType
 
             ], $options);
     }
-    private function getConfigurationint($label, $placeholder, $options = []){
+    private function getConfigurationInt($label, $placeholder, $options = []){
         return array_merge([
             'label' => $label,
             'attr' => [
@@ -36,17 +36,22 @@ class SalleType extends AbstractType
 
             ], $options);
     }
+    private function getConfigurationColor($label, $options = []){
+        return array_merge([
+            'label' => $label,
+            ], $options);
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     { 
         $builder
-            ->add('designation', TextType::class,$this->getConfigurationtext("Designation", "Taper le designation de votre salle","2","50"))
-            ->add('numero', IntegerType::class, $this->getConfigurationint("Numero","Le numero de votre salle"))
-            ->add('capacite', IntegerType::class, $this->getConfigurationint("Capacité","Taper la capacité maximale de la salle"))
-            ->add('caracteristique', TextType::class,$this->getConfigurationtext("Caracteristique", "Taper le caracteristique de votre salle","5","100"))
-            ->add('rmq', TextType::class,$this->getConfigurationtext("Remarque", "Remarque pour votre salle","2","100"))
-            ->add('etat', TextType::class,$this->getConfigurationtext("Etat", "Taper l'Etat de votre salle","4","50"))
-            ->add('frais', NumberType::class, $this->getConfigurationint("Frais","Taper le frais pour la salle"))
-            ->add('color', ColorType::class)
+            ->add('designation', TextType::class,$this->getConfigurationText("Designation", "Taper le designation de votre salle","2","50"))
+            ->add('numero', IntegerType::class, $this->getConfigurationInt("Numero","Le numero de votre salle"))
+            ->add('capacite', IntegerType::class, $this->getConfigurationInt("Capacité","Taper la capacité maximale de la salle"))
+            ->add('caracteristique', TextType::class,$this->getConfigurationText("Caracteristique", "Taper le caracteristique de votre salle","5","100"))
+            ->add('rmq', TextType::class,$this->getConfigurationText("Remarque", "Remarque pour votre salle","2","100"))
+            ->add('etat', TextType::class,$this->getConfigurationText("Etat", "Taper l'Etat de votre salle","4","50"))
+            ->add('frais', NumberType::class, $this->getConfigurationInt("Frais","Taper le frais pour la salle"))
+            ->add('color', ColorType::class, $this->getConfigurationColor('Couleur'))
         ;
     }
 

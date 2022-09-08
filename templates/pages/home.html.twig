@@ -5,6 +5,67 @@
 {% endblock %}
 
 {% block body %}
+<div class="container-fluid" id="contfluid1">
+    <div class="row">
+        <div class="col">
+            <div class="card bg-primary text-white mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <div class="col-8">
+                        <h4 class="card-title">{{ stats.clients }} clients</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-dark mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="fas fa-hotel fa-2x"></div>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="cadr-title">{{ stats.salles }} salles</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="fas fa-folder fa-2x"></div>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="cadr-title">{{ stats.reservations }} réservations</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-success mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="fas fa-user-tie fa-2x"></div>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="cadr-title">{{ stats.users }} Utilisateurs</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
 
 <div class="container">
     <div class="jumbotron mt-3">{#mt:margin top#}
@@ -17,4 +78,6 @@
         </p>
     </div>
 </div>
+
+
 {% endblock %}

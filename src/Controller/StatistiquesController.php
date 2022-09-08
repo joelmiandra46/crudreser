@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ClientRepository;
 use App\Repository\SallesRepository;
 use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,24 @@ class StatistiquesController extends AbstractController
             'salleDesignation'=> json_encode($salleDesignation),
             'salleColor' => json_encode($salleColor),
             'salleCount' => json_encode($salleCount)
+        ]);
+    }
+    #[Route('/stats/client', name: 'stats2')]
+    public function statistiquescl(ClientRepository $clientRepo): Response
+    {
+        $salles = $clientRepo->findAll();
+
+        $clientNom = [];
+        $clientCount = [];
+
+        foreach ($salles as $salle) {
+            $clientNom[] = $salle->getNom();
+            $clientCount[] = count($salle->getClt());
+        }
+
+        return $this->render('statistiques/statsclient.html.twig',[
+            'clientNom'=> json_encode($clientNom),
+            'clientCount' => json_encode($clientCount)
         ]);
     }
 }

@@ -1,6 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Reservation{% endblock %}
+{% block css %}
+    <style>
+        .pagination{
+            font-size: 0px;
+        }
+        .dataTables_filter{
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
     <div class="container mt-4 ">
@@ -15,7 +25,7 @@
         <div class="count mt-4 badge bg-dark">
             Total: {{ reservations.getTotalItemCount }} réservations.
             </div>
-        <table class="table table-hover " style="margin-top: -5px">
+        <table class="table table-hover table-responsive" id="resTableau" style="margin-top: 5px">
             <thead>
                 <tr class="table-dark">
                 <th scope="col">Numero</th>
@@ -40,9 +50,9 @@
                     <td>{{reservation.startDate|date('d/m/Y')}}</td>
                     <td>{{reservation.endDate|date('d/m/Y')}}</td>
                     <td width="100px">{{reservation.montant}} Ar</td>
-                    <td width="50px" style="color= "{% if reservation.statutReservation == "Réservé" %}green{% else %}red"{% endif %}>{{reservation.statutReservation}}</td>
-                    <td width="130px"><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a></td>
-                    <td width="130px"><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la reservation {{ reservation.id }}?')"><i class="fas fa-trash"></i> Supprimer</a></td>
+                    <td width="50px" style="color= "{% if reservation.statutReservation == "Réservé" %}green{% else %}red{% endif %}>{{reservation.statutReservation}}</td>
+                    <td><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la reservation {{ reservation.id }}?')"><i class="fas fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -53,4 +63,13 @@
 
             
     </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function(){
+            $('#resTableau').DataTable({
+
+            })
+        })
+    </script>
 {% endblock %}
