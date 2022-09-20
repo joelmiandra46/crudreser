@@ -26,7 +26,7 @@ class HomeController extends AbstractController
                 'users' => $users,
                 'reservations' => $reservations,
             ]*/
-            //ou compacter le DQL
+            //ou compacter le DQLss
             'stats' => compact('clients', 'salles', 'users', 'reservations')
         ]);;
     }

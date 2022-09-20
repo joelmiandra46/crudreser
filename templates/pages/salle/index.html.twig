@@ -17,7 +17,7 @@
             <div class="count mt-4 badge bg-dark">
                 Total: {{ salles.getTotalItemCount }} salles.
                 </div>
-            <table class="table table-hover" style="margin-top: -5px">
+            <table class="table table-hover table-striped nowrap" id="salleTableau" style="margin-top: -5px; width: 100%">
                 <thead>
                     <tr class="table-dark">
                     <th scope="col">Numero</th>
@@ -27,8 +27,7 @@
                     <th scope="col">Remarque</th>
                     <th scope="col"  width="100px">Etat</th>
                     <th scope="col">Frais</th>
-                    <th scope="col">Edition</th>
-                    <th scope="col">Suppression</th>
+                    <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,17 +40,29 @@
                         <td>{{salle.rmq}}</td>
                         <td>{{salle.etat}}</td>
                         <td width="100px">{{salle.frais}} Ar</td>
-                        <td><a href="{{ path('salle_edit',{id: salle.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a></td>
-                        <td><a href="{{ path('salle_delete',{id: salle.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la salle {{ salle.designation }} de la liste ?')"><i class="fa fa-trash"></i> Supprimer</a></td>
+                        <td><a href="{{ path('salle_edit',{id: salle.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a> <a href="{{ path('salle_delete',{id: salle.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la salle {{ salle.designation }} de la liste ?')"><i class="fa fa-trash"></i></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            <div class="navigation d-flex justify-content-center mt-4 ">
-                {{ knp_pagination_render(salles) }}
-            </div>
         </div>
 
             
     </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function(){
+            var table = $('#salleTableau').DataTable({
+                responsive: true,
+                //traduction en francais stockees dans json
+                language: {
+                    url: "/js/fr-FR.json"
+                },
+                pagingType: "simple_numbers",
+                lengthMenu:[5,10,15,20,25],
+            });
+            new $.fn.dataTable.FixedHeader( table );
+        })
+    </script>
 {% endblock %}

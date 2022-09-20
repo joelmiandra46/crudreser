@@ -9,8 +9,9 @@
         {% block css %}{% endblock %}
         {% block stylesheets %}
             <link rel="stylesheet" href="/css/app.css">
-            <link rel="stylesheet" href="/DataTables/datatables.min.css">
-            <link rel="stylesheet" href="/DataTables/DataTables-1.12.1/css/dataTables.dataTables.min.csss">
+            <link rel="stylesheet" href="/DataTables/dataTables.bootstrap5.min.css">
+            <link rel="stylesheet" href="/DataTables/fixedHeader.bootstrap.min.css">
+            <link rel="stylesheet" href="/DataTables/responsive.bootstrap.min.css">
             <link rel="stylesheet" href="/css/all.min.css">
             <link rel="stylesheet" href="/css/all.css">
             <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -25,12 +26,18 @@
         {% endblock %}
         {#ce block est utiliser par toutes page qui herite base.html.twig#}
         {% block javascripts %}
-            <script src="/js/jquery.min.js"></script>
-            <script src="/DataTables/datatables.min.js"></script>
-            <script src="/DataTables/DataTables-1.12.1/js/dataTables.dataTables.min.js"></script>
+            <script src="/js/jquery-3.5.1.js"></script>
+            <script src="/DataTables/jquery.dataTables.min.js"></script>
+            <script src="/DataTables/DataTables-1.12.1/js/dataTables.bootstrap5.min.js"></script>
+            <script src="/DataTables/dataTables.fixedHeader.min.js"></script>
+            <script src="/DataTables/dataTables.responsive.min.js"></script>
+            <script src="/DataTables/responsive.bootstrap.min.js"></script>
+            <script src="/DataTables/moment.min.js"></script>
+            <script src="/DataTables/datetime-moment.js"></script>
             <script src="/js/all.min.js"></script>
             <script src="/js/bootstrap.min.js"></script>
             <script src="/js/popper.min.js"></script>
+            <script src="/js/active.js"></script>
             <script src="/datepicker/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script>
                 //ce script modifie les propriete du date picker en fr
@@ -57,8 +64,14 @@
                         format: 'dd/mm/yyyy',
                         startDate: new Date()
                     });
+                    
+                        $('a').click((e)=>{ 
+                            $('.active').removeClass('active'); 
+                            $(e.currentTarget).addClass("active"); 
+                        });
                 });
             </script>
+
         {% endblock %}
     </head>
 

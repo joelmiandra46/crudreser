@@ -4,13 +4,14 @@ namespace App\Form;
 
 use App\Entity\Salles;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SalleType extends AbstractType
 {
@@ -48,7 +49,7 @@ class SalleType extends AbstractType
             ->add('numero', IntegerType::class, $this->getConfigurationInt("Numero","Le numero de votre salle"))
             ->add('capacite', IntegerType::class, $this->getConfigurationInt("Capacité","Taper la capacité maximale de la salle"))
             ->add('caracteristique', TextType::class,$this->getConfigurationText("Caracteristique", "Taper le caracteristique de votre salle","5","100"))
-            ->add('rmq', TextType::class,$this->getConfigurationText("Remarque", "Remarque pour votre salle","2","100"))
+            ->add('rmq', TextareaType::class,$this->getConfigurationText("Remarque", "Remarque pour votre salle","2","100"))
             ->add('etat', TextType::class,$this->getConfigurationText("Etat", "Taper l'Etat de votre salle","4","50"))
             ->add('frais', NumberType::class, $this->getConfigurationInt("Frais","Taper le frais pour la salle"))
             ->add('color', ColorType::class, $this->getConfigurationColor('Couleur'))

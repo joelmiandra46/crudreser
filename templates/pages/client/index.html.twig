@@ -15,15 +15,14 @@
         <div class="count mt-4 badge bg-dark">
             Total: {{ clients.getTotalItemCount }} clients.
         </div>
-        <table class="table table-hover" style="margin-top: -5px">
+        <table class="table table-hover table-striped nowrap" id="cltTableau" style="margin-top: -5px; width:100%">
             <thead>
                 <tr class="table-dark">
                     <th scope="col">Numero</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prenom</th>
                     <th scope="col">Tel</th>
-                    <th scope="col">Edition</th>
-                    <th scope="col">Suppression</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,15 +32,27 @@
                     <td>{{client.nom}}</td>
                     <td>{{client.prenom}}</td>
                     <td>{{client.tel}}</td>
-                    <td><a href="{{ path('client_edit',{id: client.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a></td>
-                    <td><a href="{{ path('client_delete',{id: client.id}) }}" class="btn btn-warning" onclick="return confirm('êtes-vous sûr de vouloir supprimer {{ client.nom }} {{ client.prenom }}?')"><i class="fa fa-trash"></i> Supprimer</a></td>
+                    <td><a href="{{ path('client_edit',{id: client.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>  <a href="{{ path('client_delete',{id: client.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer {{ client.nom }} {{ client.prenom }}?')"><i class="fa fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>
-        </table>
-        <div class="navigation d-flex justify-content-center mt-4 ">
-            {{ knp_pagination_render(clients) }}
-        </div>           
+        </table>          
     </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function(){
+            var table = $('#cltTableau').DataTable({
+                responsive:true,
+                //traduction en francais stockees dans json
+                language: {
+                    url: "/js/fr-FR.json"
+                },
+                pagingType: "simple_numbers",
+                lengthMenu:[5,10,15,20,25],
+            })
+            new $.fn.dataTable.FixedHeader( table );
+        })
+    </script>
 {% endblock %}
 

@@ -1,16 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Reservation{% endblock %}
-{% block css %}
-    <style>
-        .pagination{
-            font-size: 0px;
-        }
-        .dataTables_filter{
-            margin-bottom: 5px;
-        }
-    </style>
-{% endblock %}
 
 {% block body %}
     <div class="container mt-4 ">
@@ -20,56 +10,60 @@
                 <i class="fas fa-plus mt-1 m-2"></i> créer un nouveau
             </a>
     </div>
-
-
         <div class="count mt-4 badge bg-dark">
             Total: {{ reservations.getTotalItemCount }} réservations.
             </div>
-        <table class="table table-hover table-responsive" id="resTableau" style="margin-top: 5px">
+        <table class="table table-hover table-striped table-bordered nowrap" id="resTableau" style="margin-top: 5px; width:100%">
             <thead>
                 <tr class="table-dark">
                 <th scope="col">Numero</th>
                 <th scope="col">Client</th>
                 <th scope="col">Salle</th>
-                <th scope="col">Date de Reservation</th>
-                <th scope="col">Date Debut Occupation</th>
-                <th scope="col">Date fin Occupation</th>
+                <th scope="col" width="20px">Date de Reservation</th>
+                <th scope="col">Debut Occupation</th>
+                <th scope="col">Fin Occupation</th>
                 <th scope="col">Montant</th>
-                <th scope="col">statut Reservation</th>
-                <th scope="col">Modifier</th>
-                <th scope="col">supprimer</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
             {% for reservation in reservations %}
                 <tr class="table-warning">
                     <th scope="row" width="50px">{{reservation.id}}</th>
-                    <td width="100px">{{reservation.client}}</td>
-                    <td width="100px">{{reservation.salle}}</td>
-                    <td>{{reservation.createdAt|date('d/m/Y')}}</td>
-                    <td>{{reservation.startDate|date('d/m/Y')}}</td>
-                    <td>{{reservation.endDate|date('d/m/Y')}}</td>
-                    <td width="100px">{{reservation.montant}} Ar</td>
-                    <td width="50px" style="color= "{% if reservation.statutReservation == "Réservé" %}green{% else %}red{% endif %}>{{reservation.statutReservation}}</td>
-                    <td><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger" onclick="return confirm('êtes-vous sûr de vouloir supprimer la reservation {{ reservation.id }}?')"><i class="fas fa-trash"></i></a></td>
+                    <td >{{reservation.client}}</td>
+                    <td >{{reservation.salle}}</td>
+                    <td width="20px">{{reservation.createdAt|date('d/m/Y')}}</td>
+                    <td >{{reservation.startDate|date('d/m/Y')}}</td>
+                    <td >{{reservation.endDate|date('d/m/Y')}}</td>
+                    <td >{{reservation.montant}} Ar</td>
+                    <td style="color= "{% if reservation.statutReservation == "Réservé" %}green{% else %}red{% endif %}>{{reservation.statutReservation}}</td>
+                    <td width="100px"><a href="{{ path('reservation_edit',{id: reservation.id}) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a> 
+                    <!--<span style="padding-left:10px; text-align:center">-->
+                        <a href="{{ path('reservation_delete',{id: reservation.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('êtes-vous sûr de vouloir supprimer la reservation {{ reservation.id }}?')"><i class="fas fa-trash"></i></a>
+                    <!--</span>-->
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
-        </table>
-        <div class="navigation d-flex justify-content-center mt-4 ">
-            {{ knp_pagination_render(reservations) }}
-        </div>
-
-            
+        </table>        
     </div>
 {% endblock %}
 {% block js %}
     <script>
         $(document).ready(function(){
-            $('#resTableau').DataTable({
-
-            })
+            //TRI DES DATES EN FORMAT FR DD/MM/YYY
+            $.fn.dataTable.moment('DD/MM/YYYY');
+            var table = $('#resTableau').DataTable({
+                responsive: true,
+                //traduction en francais stockees dans json
+                language: {
+                    url: "/js/fr-FR.json"
+                },
+                pagingType: "simple_numbers",
+                lengthMenu:[5,10,15,20,25],
+            });
+            new $.fn.dataTable.FixedHeader( table );
         })
     </script>
 {% endblock %}
